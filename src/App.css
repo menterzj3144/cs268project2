@@ -1,38 +1,92 @@
 .App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+  background-color: rgb(226, 226, 226);
+  height: 100vh;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+}
+
+.staff {
+  background-color: white;
+  margin-top: 20%;
+  height: 100px;
+  width: 90%;
+  border: 2px solid black;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.staff-left {
+  width: 50px;
+  border-right: 2px solid black;
+}
+
+.staff-right {
+  width: auto;
+  
+}
+
+.piano {
+  position: absolute;
+  bottom: 10%;
+
+  display: flex;
+  flex-direction: row;
+}
+
+.white-key, .black-key {
+  box-shadow: 0 0 10px black;
+  font-size: 18pt;
+  font-weight: bold;
+}
+
+.white-key {
+  position: relative;
+  background-color: white;
+  height: 400px;
+  width: 90px;
+  margin: 1px;
+  padding-top: 50%;
+}
+
+.black-key {
+  position: absolute;
+  background-color: black;
   color: white;
+  height: 300px;
+  width: 60px;
+  margin-left: 2%;
+  z-index: 3;
+  border-top: 0;
+  padding: 0;
+  margin: 0;
+  padding-top: 35%;
 }
 
-.App-link {
-  color: #61dafb;
+.white-key:active {
+  background-color: rgb(230, 230, 230);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.black-key:active {
+  background-color: rgb(30, 30, 30);
+}
+
+#cs {
+  left: 10%;
+}
+
+#ds {
+  left: 24%;
+}
+
+#fs {
+  left: 52%;
+}
+
+#gs {
+  left: 67%;
+}
+
+#as {
+  left: 81%;
 }
