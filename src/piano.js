@@ -75,7 +75,6 @@ export function Piano() {
             <button className="white-key" onClick={playA}>A</button>
             <button className="black-key" id="as" onClick={playAs}>A#</button>
             <button className="white-key" onClick={playB}>B</button>
-
         </div>
     );
 }
