@@ -1,36 +1,42 @@
 import React from 'react';
 import Vex from 'vexflow';
 
-const createStaff = () => {
-    const VF = Vex.Flow;
+const VF = Vex.Flow;
+var WorkspaceInformation;
+var renderer;
+var context;
+var position = 10;
 
-    const WorkspaceInformation = {
+const createStaff = () => {
+    WorkspaceInformation = {
         canvas: document.getElementById("staff"),
         canvasWidth: 1000,
-        canvasHeight: 100
+        canvasHeight: 120
     };
 
-    const renderer = new VF.Renderer(
+    renderer = new VF.Renderer(
         WorkspaceInformation.canvas,
         VF.Renderer.Backends.CANVAS
     );
 
     renderer.resize(WorkspaceInformation.canvasWidth, WorkspaceInformation.canvasHeight);
 
-    const context = renderer.getContext();
+    context = renderer.getContext();
 
     context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
 
-
-    const stave = new VF.Stave(10, 0, 100);
+    const stave = new VF.Stave(position, 0, 100);
     stave.addClef("treble").addTimeSignature("4/4");
     stave.setContext(context).draw();
 
-    const stave2 = new VF.Stave(110, 0, 100);
-    stave2.setContext(context).draw();
+    position = position + 100;
 
-    const stave3 = new VF.Stave(210, 0, 100);
-    stave3.setContext(context).draw();
+}
+
+const addBar = () => {
+    const stave = new VF.Stave(position, 0, 100)
+    stave.setContext(context).draw();
+    position = position + 100;
 }
 
 export function Staff() {
@@ -38,6 +44,7 @@ export function Staff() {
         <div className="staff-block">
             <canvas id="staff"></canvas>
             <button onClick={createStaff}>Create Staff</button>
+            <button onClick={addBar}>Add Bar</button>
         </div>
     )
 }
