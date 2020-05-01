@@ -5,14 +5,17 @@ const VF = Vex.Flow;
 var WorkspaceInformation;
 var renderer;
 var context;
-var position = 10;
+var position;
 
-const createStaff = () => {
+function createStaff() {
+    position = 110;
     WorkspaceInformation = {
         canvas: document.getElementById("staff"),
-        canvasWidth: 1000,
-        canvasHeight: 120
+        canvasWidth: window.innerWidth,
+        canvasHeight: 100
     };
+    document.getElementById("staff").style.visibility = "visible";
+    document.getElementById("button").disabled = true;    
 
     renderer = new VF.Renderer(
         WorkspaceInformation.canvas,
@@ -25,12 +28,9 @@ const createStaff = () => {
 
     context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
 
-    const stave = new VF.Stave(position, 0, 100);
+    const stave = new VF.Stave(10, 0, 100);
     stave.addClef("treble").addTimeSignature("4/4");
     stave.setContext(context).draw();
-
-    position = position + 100;
-
 }
 
 const addBar = () => {
@@ -43,7 +43,7 @@ export function Staff() {
     return (
         <div className="staff-block">
             <canvas id="staff"></canvas>
-            <button onClick={createStaff}>Create Staff</button>
+            <button id="button" onClick={createStaff}>Create Staff</button>
             <button onClick={addBar}>Add Bar</button>
         </div>
     )
