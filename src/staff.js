@@ -12,9 +12,11 @@ function createStaff() {
 
     WorkspaceInformation = {
         canvas: document.getElementById("staff"),
-        canvasWidth: 1000,
+        canvasWidth: window.innerWidth,
         canvasHeight: 120
     };
+    document.getElementById("staff").style.visibility = "visible";
+    document.getElementById("button").disabled = true;    
 
     renderer = new VF.Renderer(
         WorkspaceInformation.canvas,
@@ -57,7 +59,7 @@ export function Staff() {
     return (
         <div className="staff-block">
             <canvas id="staff"></canvas>
-            <button onClick={() => createStaff()}>Create Staff</button>
+            <button id="button" onClick={() => createStaff()}>Create Staff</button>
             <button onClick={() => addBar()}>Add Bar</button>
         </div>
     )
