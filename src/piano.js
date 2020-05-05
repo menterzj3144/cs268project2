@@ -1,80 +1,57 @@
 import React from 'react';
+import Vex from 'vexflow';
 
-export function Piano() {
-    const playC = () => {
-        const c = new Audio("/audio/c.wav");
-        c.play();
-    }
+const VF = Vex.Flow;
+const notes = [
+    new VF.StaveNote({keys: ["c/4"],  duration: "qr"}),
+    new VF.StaveNote({keys: ["b/4"],  duration: "qr"}),
+    new VF.StaveNote({keys: ["b/4"],  duration: "qr"}),
+    new VF.StaveNote({keys: ["b/4"],  duration: "qr"})
+];
 
-    const playCs = () => {
-        const cs = new Audio("/audio/cs.wav");
-        cs.play();
-    }
+function playNote(staves, note) {
+    const c = new Audio(`/audio/${note}.wav`);
+    c.play();
 
-    const playD = () => {
-        const d = new Audio("/audio/d.wav");
-        d.play();
-    }
+    const canvas = document.getElementById("staff");
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.clientWidth, canvas.height);
+    staves[0].draw();
 
-    const playDs = () => {
-        const ds = new Audio("/audio/ds.wav");
-        ds.play();
-    }
+    notes[0] = new VF.StaveNote({keys: [`${note}/4`], duration: "q"});
+    
+    VF.Formatter.FormatAndDraw(staves[0].context, staves[0], notes);
+}
 
-    const playE = () => {
-        const e = new Audio("/audio/e.wav");
-        e.play();
-    }
+function playSharpNote(staves, note) {
+    const c = new Audio(`/audio/${note}s.wav`);
+    c.play();
 
-    const playF = () => {
-        const f = new Audio("/audio/f.wav");
-        f.play();
-    }
+    const canvas = document.getElementById("staff");
+    const context = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.clientWidth, canvas.height);
+    staves[0].draw();
 
-    const playFs = () => {
-        const fs = new Audio("/audio/fs.wav");
-        fs.play();
-    }
+    notes[0] = new VF.StaveNote({keys: [`${note}/4`], duration: "q"}).addAccidental(0, new VF.Accidental("#"));
+    
+    VF.Formatter.FormatAndDraw(staves[0].context, staves[0], notes);
+}
 
-    const playG = () => {
-        const g = new Audio("/audio/g.wav");
-        g.play();
-    }
-
-    const playGs = () => {
-        const gs = new Audio("/audio/gs.wav");
-        gs.play();
-    }
-
-    const playA = () => {
-        const a = new Audio("/audio/a.wav");
-        a.play();
-    }
-
-    const playAs = () => {
-        const as = new Audio("/audio/as.wav");
-        as.play();
-    }
-
-    const playB = () => {
-        const b = new Audio("/audio/b.wav");
-        b.play();
-    }
-
+export function Piano(props) {
     return (
         <div className="piano">
-            <button className="white-key" onClick={playC}>C</button>
-            <button className="black-key" id="cs" onClick={playCs}>C#</button>
-            <button className="white-key" onClick={playD}>D</button>
-            <button className="black-key" id="ds" onClick={playDs}>D#</button>
-            <button className="white-key" onClick={playE}>E</button>
-            <button className="white-key" onClick={playF}>F</button>
-            <button className="black-key" id="fs" onClick={playFs}>F#</button>
-            <button className="white-key" onClick={playG}>G</button>
-            <button className="black-key" id="gs" onClick={playGs}>G#</button>
-            <button className="white-key" onClick={playA}>A</button>
-            <button className="black-key" id="as" onClick={playAs}>A#</button>
-            <button className="white-key" onClick={playB}>B</button>
+            <button className="white-key" onClick={() => playNote(props.staves, "c")}>C</button>
+            <button className="black-key" id="cs" onClick={() => playSharpNote(props.staves, "c")}>C#</button>
+            <button className="white-key" onClick={() => playNote(props.staves, "d")}>D</button>
+            <button className="black-key" id="ds" onClick={() => playSharpNote(props.staves, "d")}>D#</button>
+            <button className="white-key" onClick={() => playNote(props.staves, "e")}>E</button>
+            <button className="white-key" onClick={() => playNote(props.staves, "f")}>F</button>
+            <button className="black-key" id="fs" onClick={() => playSharpNote(props.staves, "f")}>F#</button>
+            <button className="white-key" onClick={() => playNote(props.staves, "g")}>G</button>
+            <button className="black-key" id="gs" onClick={() => playSharpNote(props.staves, "g")}>G#</button>
+            <button className="white-key" onClick={() => playNote(props.staves, "a")}>A</button>
+            <button className="black-key" id="as" onClick={() => playSharpNote(props.staves, "a")}>A#</button>
+            <button className="white-key" onClick={() => playNote(props.staves, "b")}>B</button>
         </div>
     );
 }

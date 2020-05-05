@@ -7,7 +7,7 @@ var renderer;
 var context;
 var position;
 
-function createStaff() {
+function createStaff(staves) {
     position = 410;
 
     WorkspaceInformation = {
@@ -32,35 +32,22 @@ function createStaff() {
     const stave = new VF.Stave(10, 0, 400);
     stave.addClef("treble").addTimeSignature("4/4");
     stave.setContext(context).draw();
-
-
-    var notes = [
-    new VF.StaveNote({keys: ["b/4"],  duration: "qr"}),
-    new VF.StaveNote({keys: ["b/4"],  duration: "qr"}),
-    new VF.StaveNote({keys: ["b/4"],  duration: "qr"}),
-    new VF.StaveNote({keys: ["b/4"],  duration: "qr"})
-    ];
-
-    notes[0] = new VF.StaveNote({keys: ["b/4"], duration: "q"});
-
-    var voice = new VF.Voice({num_beats:4,  beat_value: 4});
-    voice.addTickables(notes);
-    new VF.Formatter().joinVoices([voice]).format([voice], 400);
-    voice.draw(context, stave);
+    staves[0] = stave;
 }
 
-function addBar() {
+function addBar(staves) {
     const stave = new VF.Stave(position, 0, 400)
     stave.setContext(context).draw();
     position = position + 400;
+    staves.push(stave);
 }
 
-export function Staff() {
+export function Staff(props) {
     return (
         <div className="staff-block">
             <canvas id="staff"></canvas>
-            <button id="button" onClick={() => createStaff()}>Create Staff</button>
-            <button onClick={() => addBar()}>Add Bar</button>
+            <button id="button" onClick={() => createStaff(props.staves)}>Create Staff</button>
+            <button onClick={() => addBar(props.staves)}>Add Bar</button>
         </div>
     )
 }
