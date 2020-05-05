@@ -3,7 +3,7 @@ import Vex from 'vexflow';
 
 const VF = Vex.Flow;
 const notes = [
-    new VF.StaveNote({keys: ["c/4"],  duration: "qr"}),
+    new VF.StaveNote({keys: ["b/4"],  duration: "qr"}),
     new VF.StaveNote({keys: ["b/4"],  duration: "qr"}),
     new VF.StaveNote({keys: ["b/4"],  duration: "qr"}),
     new VF.StaveNote({keys: ["b/4"],  duration: "qr"})
@@ -21,6 +21,7 @@ function playNote(staves, note) {
     notes[0] = new VF.StaveNote({keys: [`${note}/4`], duration: "q"});
     
     VF.Formatter.FormatAndDraw(staves[0].context, staves[0], notes);
+
 }
 
 function playSharpNote(staves, note) {
