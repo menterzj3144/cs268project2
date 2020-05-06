@@ -5,7 +5,6 @@
 
 body {
   background-color: rgb(226, 226, 226);
-
 }
 
 .App {
@@ -34,6 +33,14 @@ body {
 button {
   height: min-content;
   width: max-content;
+}
+
+#note-add {
+  display: none;
+}
+
+#rest-add {
+  display: none;
 }
 
 .piano-block {

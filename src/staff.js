@@ -1,6 +1,6 @@
 import React from 'react';
 import Vex from 'vexflow';
-import {addNote} from './piano'
+import {addNote, addRest} from './piano'
 
 const VF = Vex.Flow;
 var WorkspaceInformation;
@@ -49,6 +49,9 @@ export function Staff(props) {
             <canvas id="staff"></canvas>
             <button id="button" onClick={() => createStaff(props.staves)}>Create Staff</button>
             <button onClick={() => addNote(props.staves)}>Add Note</button>
+            <button onClick={() => addRest(props.staves)}>Add Rest</button>
+            <span id="note-add">Note Added!</span>
+            <span id="rest-add">Rest Added!</span>
         </div>
     )
 }
