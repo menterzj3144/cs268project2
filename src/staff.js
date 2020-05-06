@@ -1,5 +1,6 @@
 import React from 'react';
 import Vex from 'vexflow';
+import {addNote} from './piano'
 
 const VF = Vex.Flow;
 var WorkspaceInformation;
@@ -35,7 +36,7 @@ function createStaff(staves) {
     staves[0] = stave;
 }
 
-function addBar(staves) {
+export function addBar(staves) {
     const stave = new VF.Stave(position, 0, 400)
     stave.setContext(context).draw();
     position = position + 400;
@@ -47,7 +48,7 @@ export function Staff(props) {
         <div className="staff-block">
             <canvas id="staff"></canvas>
             <button id="button" onClick={() => createStaff(props.staves)}>Create Staff</button>
-            <button onClick={() => addBar(props.staves)}>Add Bar</button>
+            <button onClick={() => addNote(props.staves)}>Add Note</button>
         </div>
     )
 }
