@@ -28,6 +28,8 @@ function clearAndDraw(staves) {
     restAdd.style.display = "none";
     const noteAdd = document.getElementById("note-add");
     noteAdd.style.display = "none"
+    const deleteMessage = document.getElementById("delete");
+    deleteMessage.style.display = "none";
 }
 
 
@@ -75,7 +77,9 @@ export function addNote(staves) {
 
         notes.push(tempnotes);
     }
+
     clearAndDraw(staves);
+
     if(n === 0) {
         if (notes[s][n].getNoteType() === "r") {
             const restAdd = document.getElementById("rest-add");
@@ -93,6 +97,41 @@ export function addNote(staves) {
             noteAdd.style.display = "block";
         }
     }
+}
+
+
+export function deleteNote(staves) {
+    if(s === 0 && n === 0) {
+        const deleteMessage = document.getElementById("delete");
+        deleteMessage.style.display = "block";
+    } else if (n === 0) {
+        if(notes[s][n] != null) {
+            notes[s][n] = new VF.StaveNote({keys: ["b/4"], duration: "qr"});
+        }
+        s--;
+        n = 3;
+        notes[s][n] = new VF.StaveNote({keys: ["b/4"], duration: "qr"});
+        clearAndDraw(staves);
+    } else {
+        n--;
+        var j;
+        for(j = n; j < 4; j++) {
+            notes[s][j] = new VF.StaveNote({keys: ["b/4"], duration: "qr"});
+        }
+        clearAndDraw(staves);
+    }
+}
+
+
+export function clearBar(staves) {
+    notes[s] = [
+        new VF.StaveNote({keys: ["b/4"],  duration: "qr"}),
+        new VF.StaveNote({keys: ["b/4"],  duration: "qr"}),
+        new VF.StaveNote({keys: ["b/4"],  duration: "qr"}),
+        new VF.StaveNote({keys: ["b/4"],  duration: "qr"})
+    ];
+    clearAndDraw(staves);
+    n = 0;
 }
 
 

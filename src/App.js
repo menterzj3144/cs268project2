@@ -15,7 +15,3 @@ function App() {
 }
 
 export default App;
-
-/**
- * Need array of staves. Add notes to individual staves on click of key.
- */

@@ -43,6 +43,10 @@ button {
   display: none;
 }
 
+#delete {
+  display: none;
+}
+
 .piano-block {
   display: flex;
   flex-direction: column;
