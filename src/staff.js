@@ -6,18 +6,24 @@ const VF = Vex.Flow;
 var WorkspaceInformation;
 var renderer;
 var context;
-var position;
+var xposition;
+var yposition = -10;
+var x;
 
-function createStaff(staves) {
-    position = 410;
+
+export function createStaff(staves) {
+    x = window.innerWidth / 400;
+    x = x % 1;
+    x = x * 400;
+    x = x / 2;
+    xposition = x + 400;
 
     WorkspaceInformation = {
         canvas: document.getElementById("staff"),
         canvasWidth: window.innerWidth,
-        canvasHeight: 120
+        canvasHeight: 100
     };
     document.getElementById("staff").style.visibility = "visible";
-    document.getElementById("button").disabled = true;    
 
     renderer = new VF.Renderer(
         WorkspaceInformation.canvas,
@@ -30,28 +36,40 @@ function createStaff(staves) {
 
     context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
 
-    const stave = new VF.Stave(10, 0, 400);
+    const stave = new VF.Stave(x, yposition, 400);
     stave.addClef("treble").addTimeSignature("4/4");
     stave.setContext(context).draw();
     staves[0] = stave;
 }
 
+
 export function addBar(staves) {
-    const stave = new VF.Stave(position, 0, 400)
+    if (xposition + 400 > window.innerWidth) {
+        xposition = x;
+        yposition += 100;
+        WorkspaceInformation.canvasHeight += 100;
+        console.log(WorkspaceInformation.canvasHeight);
+        renderer.resize(WorkspaceInformation.canvasWidth, WorkspaceInformation.canvasHeight);
+        var i;
+    }
+
+    const stave = new VF.Stave(xposition, yposition, 400)
     stave.setContext(context).draw();
-    position = position + 400;
+    xposition = xposition + 400;
     staves.push(stave);
 }
+
 
 export function Staff(props) {
     return (
         <div className="staff-block">
             <canvas id="staff"></canvas>
-            <button id="button" onClick={() => createStaff(props.staves)}>Create Staff</button>
-            <button onClick={() => addNote(props.staves)}>Add Note</button>
-            <button onClick={() => addRest(props.staves)}>Add Rest</button>
-            <button onClick={() => deleteNote(props.staves)}>Delete Last Note</button>
-            <button onClick={() => clearBar(props.staves)}>Clear Bar</button>
+            <div id="buttons">
+                <button onClick={() => addNote(props.staves, props.notes)}>Add Note</button>
+                <button onClick={() => addRest(props.staves, props.notes)}>Add Rest</button>
+                <button onClick={() => deleteNote(props.staves, props.notes)}>Delete Last Note</button>
+                <button onClick={() => clearBar(props.staves, props.notes)}>Clear Bar</button>
+            </div>
             <span id="note-add">Note Added!</span>
             <span id="rest-add">Rest Added!</span>
             <span id="delete">No notes to delete.</span>

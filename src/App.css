@@ -30,6 +30,22 @@ body {
   visibility: hidden;
 }
 
+#buttons {
+  display: flex;
+  flex-direction: row;
+
+  justify-content: center;
+  align-items: center;
+
+}
+
+#buttons > button {
+  margin: 10px;
+  padding: 5px;
+
+  font-size: 12pt;
+}
+
 button {
   height: min-content;
   width: max-content;
@@ -44,6 +60,10 @@ button {
 }
 
 #delete {
+  display: none;
+}
+
+#please-play-note {
   display: none;
 }
 
