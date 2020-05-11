@@ -1,6 +1,6 @@
 import React from 'react';
 import Vex from 'vexflow';
-import {addNote, addRest, deleteNote, clearBar} from './piano'
+import {addRest, deleteNote, clearBar, clearAndDraw} from './piano'
 
 const VF = Vex.Flow;
 var WorkspaceInformation;
@@ -11,7 +11,7 @@ var yposition = -10;
 var x;
 
 
-export function createStaff(staves) {
+export function createStaff(staves, notes) {
     x = window.innerWidth / 400;
     x = x % 1;
     x = x * 400;
@@ -38,8 +38,11 @@ export function createStaff(staves) {
 
     const stave = new VF.Stave(x, yposition, 400);
     stave.addClef("treble").addTimeSignature("4/4");
-    stave.setContext(context).draw();
+    stave.setContext(context);
     staves[0] = stave;
+    
+    notes[0][0].setStyle({fillStyle: "green", strokeStyle: "green"});
+    clearAndDraw(staves, notes);
 }
 
 
@@ -50,7 +53,6 @@ export function addBar(staves) {
         WorkspaceInformation.canvasHeight += 100;
         console.log(WorkspaceInformation.canvasHeight);
         renderer.resize(WorkspaceInformation.canvasWidth, WorkspaceInformation.canvasHeight);
-        var i;
     }
 
     const stave = new VF.Stave(xposition, yposition, 400)

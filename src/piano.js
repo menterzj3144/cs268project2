@@ -8,12 +8,11 @@ var s = 0;
 var n = 0;
 
 
-function clearAndDraw(staves, notes) {
+export function clearAndDraw(staves, notes) {
     if (staves[0] != null) {
         const canvas = document.getElementById("staff");
         const context = canvas.getContext('2d');
         context.clearRect(0, 0, canvas.clientWidth, canvas.height);
-
 
         var i;
         for(i = 0; i <= s; i++) {
@@ -96,7 +95,6 @@ export function addRest(staves, notes) {
         const restAdd = document.getElementById("rest-add");
         restAdd.style.display = "block";
     }
-
 }
 
 
@@ -167,7 +165,6 @@ export function clearBar(staves, notes) {
 
 export function Piano(props) {
     return (
-        
             <div className="piano">
                 <button className="white-key" onClick={() => playNote(props.staves, props.notes, "c")}>C</button>
                 <button className="black-key" id="cs" onClick={() => playSharpNote(props.staves, props.notes, "c")}>C#</button>
