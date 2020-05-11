@@ -65,12 +65,10 @@ export function Staff(props) {
         <div className="staff-block">
             <canvas id="staff"></canvas>
             <div id="buttons">
-                <button onClick={() => addNote(props.staves, props.notes)}>Add Note</button>
                 <button onClick={() => addRest(props.staves, props.notes)}>Add Rest</button>
                 <button onClick={() => deleteNote(props.staves, props.notes)}>Delete Last Note</button>
                 <button onClick={() => clearBar(props.staves, props.notes)}>Clear Bar</button>
             </div>
-            <span id="note-add">Note Added!</span>
             <span id="rest-add">Rest Added!</span>
             <span id="delete">No notes to delete.</span>
         </div>

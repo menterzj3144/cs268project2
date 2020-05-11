@@ -23,8 +23,6 @@ function clearAndDraw(staves, notes) {
 
         const restAdd = document.getElementById("rest-add");
         restAdd.style.display = "none";
-        const noteAdd = document.getElementById("note-add");
-        noteAdd.style.display = "none"
         const deleteMessage = document.getElementById("delete");
         deleteMessage.style.display = "none";
     }
@@ -43,6 +41,7 @@ function playNote(staves, notes, note) {
     notes[s][n].setStyle({fillStyle: "green", strokeStyle: "green"});
 
     clearAndDraw(staves, notes);
+    addNote(staves, notes);
 }
 
 
@@ -58,6 +57,7 @@ function playSharpNote(staves, notes, note) {
     notes[s][n].setStyle({fillStyle: "green", strokeStyle: "green"});
 
     clearAndDraw(staves, notes);
+    addNote(staves, notes);
 }
 
 
@@ -122,16 +122,7 @@ export function addNote(staves, notes) {
 
         notes[s][n].setStyle({fillStyle: "green", strokeStyle: "green"});
 
-
         clearAndDraw(staves, notes);
-
-        if(n === 0) {
-            const noteAdd = document.getElementById("note-add");
-            noteAdd.style.display = "block";
-        } else {
-            const noteAdd = document.getElementById("note-add");
-            noteAdd.style.display = "block";
-        }
     }
 }
 
@@ -180,7 +171,7 @@ export function Piano(props) {
             <div className="piano">
                 <button className="white-key" onClick={() => playNote(props.staves, props.notes, "c")}>C</button>
                 <button className="black-key" id="cs" onClick={() => playSharpNote(props.staves, props.notes, "c")}>C#</button>
-                <button className="white-key" onClick={() => playNote(props.staves, "d")}>D</button>
+                <button className="white-key" onClick={() => playNote(props.staves, props.notes, "d")}>D</button>
                 <button className="black-key" id="ds" onClick={() => playSharpNote(props.staves, props.notes, "d")}>D#</button>
                 <button className="white-key" onClick={() => playNote(props.staves, props.notes, "e")}>E</button>
                 <button className="white-key" onClick={() => playNote(props.staves, props.notes, "f")}>F</button>

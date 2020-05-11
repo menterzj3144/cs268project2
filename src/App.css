@@ -51,10 +51,6 @@ button {
   width: max-content;
 }
 
-#note-add {
-  display: none;
-}
-
 #rest-add {
   display: none;
 }
