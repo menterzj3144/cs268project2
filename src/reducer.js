@@ -1,8 +1,5 @@
 import {Action} from './actions';
 import {createStaff} from './staff';
-import {PlayNote} from './piano';
-import Vex from 'vexflow';
-const VF = Vex.Flow;
 
 const initialState = {
     staves: [],
