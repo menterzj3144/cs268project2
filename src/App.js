@@ -3,15 +3,12 @@ import './App.css';
 import {Piano} from './piano.js'
 import {Staff} from './staff.js'
 import Vex from 'vexflow';
-import {useSelector, useDispatch} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {drawStaff} from './actions';
 
 const VF = Vex.Flow;
 
 function App() {
-
-  const staves = useSelector(state => state.staves);
-  const notes = useSelector(state => state.notes);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,8 +22,8 @@ function App() {
 
   return (
     <div className="App">
-      <Staff staves={staves} notes={notes}/>
-      <Piano staves={staves} notes={notes}/>
+      <Staff />
+      <Piano />
     </div>
   );
 }

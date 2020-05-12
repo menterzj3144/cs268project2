@@ -1,6 +1,7 @@
 import React from 'react';
 import Vex from 'vexflow';
-import {addBar, createStaff} from './staff'
+import {addBar, createStaff} from './staff';
+import {useSelector} from 'react-redux';
 
 const VF = Vex.Flow;
 
@@ -163,21 +164,23 @@ export function clearBar(staves, notes) {
 }
 
 
-export function Piano(props) {
+export function Piano() {
+    const staves = useSelector(state => state.staves);
+    const notes = useSelector(state => state.notes);
     return (
             <div className="piano">
-                <button className="white-key" onClick={() => playNote(props.staves, props.notes, "c")}>C</button>
-                <button className="black-key" id="cs" onClick={() => playSharpNote(props.staves, props.notes, "c")}>C#</button>
-                <button className="white-key" onClick={() => playNote(props.staves, props.notes, "d")}>D</button>
-                <button className="black-key" id="ds" onClick={() => playSharpNote(props.staves, props.notes, "d")}>D#</button>
-                <button className="white-key" onClick={() => playNote(props.staves, props.notes, "e")}>E</button>
-                <button className="white-key" onClick={() => playNote(props.staves, props.notes, "f")}>F</button>
-                <button className="black-key" id="fs" onClick={() => playSharpNote(props.staves, props.notes, "f")}>F#</button>
-                <button className="white-key" onClick={() => playNote(props.staves, props.notes, "g")}>G</button>
-                <button className="black-key" id="gs" onClick={() => playSharpNote(props.staves, props.notes, "g")}>G#</button>
-                <button className="white-key" onClick={() => playNote(props.staves, props.notes, "a")}>A</button>
-                <button className="black-key" id="as" onClick={() => playSharpNote(props.staves, props.notes, "a")}>A#</button>
-                <button className="white-key" onClick={() => playNote(props.staves, props.notes, "b")}>B</button>
+                <button className="white-key" onClick={() => playNote(staves, notes, "c")}>C</button>
+                <button className="black-key" id="cs" onClick={() => playSharpNote(staves, notes, "c")}>C#</button>
+                <button className="white-key" onClick={() => playNote(staves, notes, "d")}>D</button>
+                <button className="black-key" id="ds" onClick={() => playSharpNote(staves, notes, "d")}>D#</button>
+                <button className="white-key" onClick={() => playNote(staves, notes, "e")}>E</button>
+                <button className="white-key" onClick={() => playNote(staves, notes, "f")}>F</button>
+                <button className="black-key" id="fs" onClick={() => playSharpNote(staves, notes, "f")}>F#</button>
+                <button className="white-key" onClick={() => playNote(staves, notes, "g")}>G</button>
+                <button className="black-key" id="gs" onClick={() => playSharpNote(staves, notes, "g")}>G#</button>
+                <button className="white-key" onClick={() => playNote(staves, notes, "a")}>A</button>
+                <button className="black-key" id="as" onClick={() => playSharpNote(staves, notes, "a")}>A#</button>
+                <button className="white-key" onClick={() => playNote(staves, notes, "b")}>B</button>
         </div>
     );
 }

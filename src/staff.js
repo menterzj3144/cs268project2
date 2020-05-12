@@ -1,6 +1,7 @@
 import React from 'react';
 import Vex from 'vexflow';
-import {addRest, deleteNote, clearBar, clearAndDraw} from './piano'
+import {addRest, deleteNote, clearBar, clearAndDraw} from './piano';
+import {useSelector} from 'react-redux';
 
 const VF = Vex.Flow;
 var WorkspaceInformation;
@@ -39,7 +40,7 @@ export function createStaff(staves, notes) {
     const stave = new VF.Stave(x, yposition, 400);
     stave.addClef("treble").addTimeSignature("4/4");
     stave.setContext(context);
-    staves[0] = stave;
+    staves.push(stave);
     
     notes[0][0].setStyle({fillStyle: "green", strokeStyle: "green"});
     clearAndDraw(staves, notes);
@@ -62,14 +63,16 @@ export function addBar(staves) {
 }
 
 
-export function Staff(props) {
+export function Staff() {
+    const staves = useSelector(state => state.staves);
+    const notes = useSelector(state => state.notes);
     return (
         <div className="staff-block">
             <canvas id="staff"></canvas>
             <div id="buttons">
-                <button onClick={() => addRest(props.staves, props.notes)}>Add Rest</button>
-                <button onClick={() => deleteNote(props.staves, props.notes)}>Delete Last Note</button>
-                <button onClick={() => clearBar(props.staves, props.notes)}>Clear Bar</button>
+                <button onClick={() => addRest(staves, notes)}>Add Rest</button>
+                <button onClick={() => deleteNote(staves, notes)}>Delete Last Note</button>
+                <button onClick={() => clearBar(staves, notes)}>Clear Bar</button>
             </div>
             <span id="rest-add">Rest Added!</span>
             <span id="delete">No notes to delete.</span>
