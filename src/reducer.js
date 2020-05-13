@@ -59,6 +59,8 @@ function reducer(state = initialState, action) {
                     ]],
                 }
             } else if (noteIndex > 3) {
+                console.log(state.notes[0]);
+
                 console.log("yeet");
                 noteIndex = 0;
                 return {
@@ -69,12 +71,13 @@ function reducer(state = initialState, action) {
                 }
             } else {
                 console.log(noteIndex, staveIndex)
+                console.log(state.notes[1])
                 return {
                     ...state,
                     notes: [...state.notes, [
-                        ...state.notes[1],
+                        ...state.notes[staveIndex],
                         new VF.StaveNote({keys: [`${action.payload}/4`],  duration: "q"}),
-                    ]]
+                    ]],
                 }
             }
         default:
