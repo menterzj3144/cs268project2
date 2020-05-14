@@ -27,36 +27,6 @@ import {addNote} from './actions';
 // }
 
 
-// function playNote(staves, notes, note) {
-
-
-//     // if (staves[0] == null) {
-//     //     createStaff(staves);
-//     // }
-
-//     notes[s][n] = new VF.StaveNote({keys: [`${note}/4`], duration: "q"});
-//     notes[s][n].setStyle({fillStyle: "green", strokeStyle: "green"});
-
-//     clearAndDraw(staves, notes);
-//     addNote(staves, notes);
-// }
-
-
-// function playSharpNote(staves, notes, note) {
-    
-
-//     // if (staves[0] == null) {
-//     //     createStaff(staves);
-//     // }
-
-//     notes[s][n] = new VF.StaveNote({keys: [`${note}/4`], duration: "q"}).addAccidental(0, new VF.Accidental("#"));
-//     notes[s][n].setStyle({fillStyle: "green", strokeStyle: "green"});
-
-//     clearAndDraw(staves, notes);
-//     addNote(staves, notes);
-// }
-
-
 // export function addRest(staves, notes) {
 //     // if (staves[0] == null) {
 //     //     createStaff(staves);
@@ -170,27 +140,19 @@ export function Piano() {
         dispatch(addNote(note));
     }
 
-
-    const playSharpNote = note => {
-        const c = new Audio(`/audio/${note}s.wav`);
-        c.play();
-
-        // dispatch(addSharpNote());
-    }
-
     return (
             <div className="piano">
                 <button className="white-key" onClick={() => playNote("c")}>C</button>
-                <button className="black-key" id="cs" onClick={() => playSharpNote("c")}>C#</button>
+                <button className="black-key" id="cs" onClick={() => playNote("cs")}>C#</button>
                 <button className="white-key" onClick={() => playNote("d")}>D</button>
-                <button className="black-key" id="ds" onClick={() => playSharpNote("d")}>D#</button>
+                <button className="black-key" id="ds" onClick={() => playNote("ds")}>D#</button>
                 <button className="white-key" onClick={() => playNote("e")}>E</button>
                 <button className="white-key" onClick={() => playNote("f")}>F</button>
-                <button className="black-key" id="fs" onClick={() => playSharpNote("f")}>F#</button>
+                <button className="black-key" id="fs" onClick={() => playNote("fs")}>F#</button>
                 <button className="white-key" onClick={() => playNote("g")}>G</button>
-                <button className="black-key" id="gs" onClick={() => playSharpNote("g")}>G#</button>
+                <button className="black-key" id="gs" onClick={() => playNote("gs")}>G#</button>
                 <button className="white-key" onClick={() => playNote("a")}>A</button>
-                <button className="black-key" id="as" onClick={() => playSharpNote("a")}>A#</button>
+                <button className="black-key" id="as" onClick={() => playNote("as")}>A#</button>
                 <button className="white-key" onClick={() => playNote("b")}>B</button>
         </div>
     );

@@ -1,48 +1,10 @@
 export const Action = Object.freeze({
-    CreateStaff: 'CreateStaff',
     AddBar: 'AddBar',
     DeleteBar: 'DeleteBar',
-    ChangeNote: 'ChangeNote',
     DeleteNote: 'DeleteNote',
-    AddRest: 'AddRest',
     AddNote: 'AddNote',
-    AddSharpNote: 'AddSharpNote',
+    Yeet1: 'Yeet1',
 });
-
-export function createStaff() {
-    return {
-        type: Action.CreateStaff,
-        payload: undefined,
-    };
-}
-
-export function addBar() {
-    return {
-        type: Action.AddBar,
-        payload: undefined,
-    };
-}
-
-export function deleteBar() {
-    return {
-        type: Action.DeleteBar,
-        payload: undefined,
-    };
-}
-
-export function addRest() {
-    return {
-        type: Action.AddRest,
-        payload: undefined,
-    };
-}
-
-export function changeNote() {
-    return {
-        type: Action.ChangeNote,
-        payload: undefined,
-    };
-}
 
 export function deleteNote() {
     return {
@@ -58,9 +20,9 @@ export function addNote(note) {
     };
 }
 
-export function addSharpNote() {
+export function yeet1() {
     return {
-        type: Action.AddSharpNote,
+        type: Action.Yeet1,
         payload: undefined,
     };
 }

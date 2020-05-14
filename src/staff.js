@@ -1,74 +1,90 @@
 import React, { useEffect } from 'react';
 import Vex from 'vexflow';
 import {useSelector, useDispatch} from 'react-redux';
-import { addBar, addRest, deleteNote, deleteBar } from './actions';
+import { addNote, deleteNote, yeet1 } from './actions';
 import { convertStaves, convertNotes } from './converter';
 
 const VF = Vex.Flow;
-var WorkspaceInformation;
-var renderer;
-var context;
 
 export function Staff() {
     const dispatch = useDispatch();
     const staves = useSelector(state => state.staves);
     const completedBars = useSelector(state => state.completedBars);
-    const barInProgress = useSelector(state => state.barInProgress)
-
-    const onClickAddBar = () => {
-        dispatch(addBar());
-    };
+    const barInProgress = useSelector(state => state.barInProgress);
 
     const onClickAddRest = () => {
-        dispatch(addRest());
+        dispatch(addNote("r"));
     };
 
     const onClickDeleteNote = () => {
         dispatch(deleteNote());
     };
 
-    const onClickDeleteBar = () => {
-        if (staves.length > 1) {
-            dispatch(deleteBar());
-        }
+    const yeet = () => {
+        dispatch(yeet1());
     };
 
     useEffect(() => {
+        // var numStaves = window.innerWidth / 400;
+        // var x = numStaves % 1;
+        // numStaves = numStaves - x;
+        // x = x * 400;
+        // x = x / 2;
+        // var xposition = x;
+        // var yposition = -10;
+
         var vexStaves = convertStaves(staves);
         var vexNotes = convertNotes(completedBars, barInProgress);
         
-        WorkspaceInformation = {
-            canvas: document.getElementById("staff"),
-            canvasWidth: window.innerWidth,
-            canvasHeight: 100
-        };
-        document.getElementById("staff").style.visibility = "visible";
+        // WorkspaceInformation = {
+        //     canvas: document.getElementById("staff"),
+        //     canvasWidth: window.innerWidth,
+        //     canvasHeight: 100
+        // };
+        // document.getElementById("staff").style.visibility = "visible";
     
-        renderer = new VF.Renderer(
-            WorkspaceInformation.canvas,
-            VF.Renderer.Backends.CANVAS
-        );
+        // renderer = new VF.Renderer(
+        //     WorkspaceInformation.canvas,
+        //     VF.Renderer.Backends.CANVAS
+        // );
     
-        renderer.resize(WorkspaceInformation.canvasWidth, WorkspaceInformation.canvasHeight);
+        // renderer.resize(WorkspaceInformation.canvasWidth, WorkspaceInformation.canvasHeight);
     
-        context = renderer.getContext();
+        // context = renderer.getContext();
     
-        context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
+        // context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
 
+        // const canvas = document.getElementById("staff");
+        // context = canvas.getContext("2d");
+        // context.clearRect(0, 0, canvas.clientWidth, canvas.height);
 
-        const canvas = document.getElementById("staff");
-        context = canvas.getContext("2d");
-        context.clearRect(0, 0, canvas.clientWidth, canvas.height);
-
-        var x = 50;
-        var i;
-        for (i = 0; i < vexStaves.length; i++) {
-            vexStaves[i].setContext(context).setX(x).setY(-10).setWidth(400).draw();
-            x += 400;
-            if (vexNotes[i] != null) {
-                VF.Formatter.FormatAndDraw(vexStaves[i].context, vexStaves[i], vexNotes[i]);
+        // var i;
+        // for (i = 0; i < vexStaves.length; i++) {
+        //     console.log(vexStaves);
+        //     if (xposition + 400 > window.innerWidth) {
+        //         xposition = x;
+        //         yposition += 100;
+        //         WorkspaceInformation.canvasHeight += 100;
+        //         renderer.resize(WorkspaceInformation.canvasWidth, WorkspaceInformation.canvasHeight);
+        //     }
+        //     vexStaves[i].setContext(context).setX(xposition).setY(yposition).setWidth(400).draw();
+        //     xposition += 400;
+        //     if (vexNotes[i] != null) {
+        //         VF.Formatter.FormatAndDraw(vexStaves[i].context, vexStaves[i], vexNotes[i]);
+        //     }
+        // }
+        if (staves[0] != null) {
+            const canvas = document.getElementById("staff");
+            const context = canvas.getContext('2d');
+            context.clearRect(0, 0, canvas.clientWidth, canvas.height);
+    
+            var i;
+            for(i = 0; i < vexStaves.length; i++) {
+                vexStaves[i].draw();
+                if (vexNotes[i] != null) {
+                    VF.Formatter.FormatAndDraw(vexStaves[i].context, vexStaves[i], vexNotes[i]);
+                }
             }
-
         }
     });
     
@@ -76,10 +92,9 @@ export function Staff() {
         <div className="staff-block">
             <canvas id="staff"></canvas>
             <div id="buttons">
-                <button onClick={onClickAddBar}>Add Bar</button>
                 <button onClick={onClickAddRest}>Add Rest</button>
                 <button onClick={onClickDeleteNote}>Delete Last Note</button>
-                <button onClick={onClickDeleteBar}>Delete Bar</button>
+                <button onClick={yeet}>Yeet</button>
             </div>
             <span id="rest-add">Rest Added!</span>
             <span id="delete">No notes to delete.</span>
