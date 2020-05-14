@@ -1,10 +1,7 @@
 import React from 'react';
-import Vex from 'vexflow';
 // import {addBar} from './staff';
-import {useSelector, useDispatch} from 'react-redux';
-import {addNote, addSharpNote} from './actions';
-
-const VF = Vex.Flow;
+import {useDispatch} from 'react-redux';
+import {addNote} from './actions';
 
 // var s = 0;
 // var n = 0;
@@ -164,8 +161,6 @@ const VF = Vex.Flow;
 
 
 export function Piano() {
-    const staves = useSelector(state => state.staves);
-    const notes = useSelector(state => state.notes);
     const dispatch = useDispatch();
 
     const playNote = note => {

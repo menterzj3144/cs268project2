@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Vex from 'vexflow';
 import {useSelector, useDispatch} from 'react-redux';
 import { addBar, addRest, deleteNote, deleteBar } from './actions';
+import { convertStaves, convertNotes } from './converter';
 
 const VF = Vex.Flow;
 var WorkspaceInformation;
@@ -11,7 +12,8 @@ var context;
 export function Staff() {
     const dispatch = useDispatch();
     const staves = useSelector(state => state.staves);
-    const notes = useSelector(state => state.notes);
+    const completedBars = useSelector(state => state.completedBars);
+    const barInProgress = useSelector(state => state.barInProgress)
 
     const onClickAddBar = () => {
         dispatch(addBar());
@@ -26,10 +28,14 @@ export function Staff() {
     };
 
     const onClickDeleteBar = () => {
-        dispatch(deleteBar());
+        if (staves.length > 1) {
+            dispatch(deleteBar());
+        }
     };
 
     useEffect(() => {
+        var vexStaves = convertStaves(staves);
+        var vexNotes = convertNotes(completedBars, barInProgress);
         
         WorkspaceInformation = {
             canvas: document.getElementById("staff"),
@@ -54,12 +60,13 @@ export function Staff() {
         context = canvas.getContext("2d");
         context.clearRect(0, 0, canvas.clientWidth, canvas.height);
 
+        var x = 50;
         var i;
-        for (i = 0; i < staves.length; i++) {
-            staves[i].setContext(context).draw();
-
-            if (notes[i] != null) {
-                VF.Formatter.FormatAndDraw(staves[i].context, staves[i], notes[i]);
+        for (i = 0; i < vexStaves.length; i++) {
+            vexStaves[i].setContext(context).setX(x).setY(-10).setWidth(400).draw();
+            x += 400;
+            if (vexNotes[i] != null) {
+                VF.Formatter.FormatAndDraw(vexStaves[i].context, vexStaves[i], vexNotes[i]);
             }
 
         }
