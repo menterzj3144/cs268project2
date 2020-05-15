@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch} from 'react-redux';
-import {addNote, deleteNote, yeet} from './actions';
+import {addNote, deleteNote, deleteSong, yeet} from './actions';
 
 export function Piano() {
     const dispatch = useDispatch();
@@ -20,6 +20,10 @@ export function Piano() {
         dispatch(deleteNote());
     };
 
+    const onClickDeleteSong = () => {
+        dispatch(deleteSong());
+    };
+
     const clickYeet = () => {
         dispatch(yeet());
     };
@@ -30,6 +34,7 @@ export function Piano() {
                 <div className="buttons">
                     <button onClick={onClickAddRest}>Add Rest</button>
                     <button onClick={onClickDeleteNote}>Delete Last Note</button>
+                    <button onClick={onClickDeleteSong}>Delete Song</button>
                     <button onClick={clickYeet}>Yeet</button>
                 </div>
                 <div className="piano">

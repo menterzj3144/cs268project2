@@ -73,6 +73,14 @@ function reducer(state = initialState, action) {
             }
 
 
+        case Action.DeleteSong:
+            return {
+                staves: [1],
+                completedBars: [],
+                barInProgress: [],
+            };
+
+
         default:
             return state;
     }

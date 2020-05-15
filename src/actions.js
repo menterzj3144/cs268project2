@@ -1,8 +1,7 @@
 export const Action = Object.freeze({
-    AddBar: 'AddBar',
-    DeleteBar: 'DeleteBar',
     DeleteNote: 'DeleteNote',
     AddNote: 'AddNote',
+    DeleteSong: 'DeleteSong',
     Yeet: 'Yeet',
 });
 
@@ -18,6 +17,13 @@ export function addNote(note) {
         type: Action.AddNote,
         payload: note,
     };
+}
+
+export function deleteSong() {
+    return {
+        type: Action.DeleteSong,
+        payload: undefined,
+    }
 }
 
 export function yeet() {
