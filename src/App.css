@@ -16,51 +16,23 @@ body {
   flex-direction: column;
 }
 
-.staff-block {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
 #staff {
   background-color: white;
   border: 1px solid black;
-
-  visibility: hidden;
 }
 
-#buttons {
+.buttons {
   display: flex;
   flex-direction: row;
 
   justify-content: center;
   align-items: center;
-
 }
 
-#buttons > button {
+.buttons > button {
   margin: 10px;
   padding: 5px;
-
   font-size: 12pt;
-}
-
-button {
-  height: min-content;
-  width: max-content;
-}
-
-#rest-add {
-  display: none;
-}
-
-#delete {
-  display: none;
-}
-
-#please-play-note {
-  display: none;
 }
 
 .piano-block {

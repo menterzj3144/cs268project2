@@ -13,51 +13,45 @@ export function convertStaves(staves) {
     x = x % 1;
     x = x * 400;
     x = x / 2;
-    xposition = x + 400;
+    xposition = 420;
     var yposition = -10;
 
     WorkspaceInformation = {
         canvas: document.getElementById("staff"),
-        canvasWidth: window.innerWidth,
+        canvasWidth: window.innerWidth - (x * 2) + 40,
         canvasHeight: 100
     };
-    document.getElementById("staff").style.visibility = "visible";
-
     renderer = new VF.Renderer(
         WorkspaceInformation.canvas,
         VF.Renderer.Backends.CANVAS
     );
-
     renderer.resize(WorkspaceInformation.canvasWidth, WorkspaceInformation.canvasHeight);
-
     context = renderer.getContext();
-
     context.setFont("Arial", 10, "").setBackgroundFillStyle("#eed");
 
     var vexStaves = [];
 
-    var staff = new VF.Stave(x, yposition, 400);
+    var staff = new VF.Stave(20, yposition, 400);
     staff.addClef("treble").addTimeSignature("4/4");
     staff.setContext(context);
     vexStaves.push(staff);
 
     var i;
     for (i = 1; i < staves.length; i++) {
-        if (xposition + 400 > window.innerWidth) {
-            xposition = x;
+        if (xposition + 400 > WorkspaceInformation.canvasWidth) {
+            xposition = 20;
             yposition += 100;
             WorkspaceInformation.canvasHeight += 100;
             renderer.resize(WorkspaceInformation.canvasWidth, WorkspaceInformation.canvasHeight);
         }
-    
         staff = new VF.Stave(xposition, yposition, 400);
         staff.setContext(context);
         vexStaves.push(staff);
         xposition = xposition + 400;
     }
-
     return vexStaves;
 }
+
 
 export function convertNotes(completedBars, barInProgress) {
     var vexNotes = [];
@@ -82,7 +76,6 @@ export function convertNotes(completedBars, barInProgress) {
             temp = [];
         }
     }
-
 
     if (barInProgress.length !== 0) {
         for (i = 0; i < barInProgress.length; i++) {

@@ -3,7 +3,7 @@ export const Action = Object.freeze({
     DeleteBar: 'DeleteBar',
     DeleteNote: 'DeleteNote',
     AddNote: 'AddNote',
-    Yeet1: 'Yeet1',
+    Yeet: 'Yeet',
 });
 
 export function deleteNote() {
@@ -20,9 +20,9 @@ export function addNote(note) {
     };
 }
 
-export function yeet1() {
+export function yeet() {
     return {
-        type: Action.Yeet1,
+        type: Action.Yeet,
         payload: undefined,
     };
 }

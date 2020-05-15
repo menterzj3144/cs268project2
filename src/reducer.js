@@ -8,12 +8,14 @@ const initialState = {
 
 function reducer(state = initialState, action) {
     switch (action.type) {      
-        case Action.Yeet1:
-            console.log("YEET");
+        case Action.Yeet:
+            console.log("Yeet");
+            console.log("completed: ", state.completedBars, "in progress: ", state.barInProgress);
             return {
                 ...state,
             };
         
+
         case Action.AddNote:
             if (state.barInProgress.length < 4 && state.barInProgress.length > 0) {
                 return {

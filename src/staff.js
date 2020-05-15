@@ -1,28 +1,15 @@
 import React, { useEffect } from 'react';
 import Vex from 'vexflow';
-import {useSelector, useDispatch} from 'react-redux';
-import { addNote, deleteNote, yeet1 } from './actions';
+import {useSelector} from 'react-redux';
 import { convertStaves, convertNotes } from './converter';
 
 const VF = Vex.Flow;
 
 export function Staff() {
-    const dispatch = useDispatch();
     const staves = useSelector(state => state.staves);
     const completedBars = useSelector(state => state.completedBars);
     const barInProgress = useSelector(state => state.barInProgress);
 
-    const onClickAddRest = () => {
-        dispatch(addNote("r"));
-    };
-
-    const onClickDeleteNote = () => {
-        dispatch(deleteNote());
-    };
-
-    const yeet = () => {
-        dispatch(yeet1());
-    };
 
     useEffect(() => {
         var vexStaves = convertStaves(staves);
@@ -44,15 +31,6 @@ export function Staff() {
     });
     
     return (
-        <div className="staff-block">
             <canvas id="staff"></canvas>
-            <div id="buttons">
-                <button onClick={onClickAddRest}>Add Rest</button>
-                <button onClick={onClickDeleteNote}>Delete Last Note</button>
-                <button onClick={yeet}>Yeet</button>
-            </div>
-            <span id="rest-add">Rest Added!</span>
-            <span id="delete">No notes to delete.</span>
-        </div>
     )
 }
