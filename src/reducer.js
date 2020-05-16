@@ -81,6 +81,34 @@ function reducer(state = initialState, action) {
             };
 
 
+        case Action.LoadNotes:
+            var temp = [];
+            var i;
+            for (i = 0; i < action.payload.length; i++) {
+                temp.push(action.payload[i].notes);
+            }
+            console.log(temp);
+
+            var temp2 = [];
+
+            var j;
+            for (j = 0; j < temp.length; j + 4) {
+                if (temp[j + 3] != null) {
+                    var arr = [];
+                    var x;
+                    for (x = 0; x < 4; x++) {
+                        arr.push(j + x);
+                    }
+                    temp2.push(arr);
+                }
+            }
+
+            return {
+                ...state,
+                completedBars: [temp2],
+            };
+
+
         default:
             return state;
     }
