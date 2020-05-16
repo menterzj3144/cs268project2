@@ -10,7 +10,7 @@ function reducer(state = initialState, action) {
     switch (action.type) {      
         case Action.Yeet:
             console.log("Yeet");
-            console.log("completed: ", state.completedBars, "in progress: ", state.barInProgress);
+            console.log("staves: ", state.staves, "completed: ", state.completedBars, "in progress: ", state.barInProgress);
             return {
                 ...state,
             };
@@ -87,25 +87,44 @@ function reducer(state = initialState, action) {
             for (i = 0; i < action.payload.length; i++) {
                 temp.push(action.payload[i].notes);
             }
-            console.log(temp);
 
-            var temp2 = [];
+            var numStaves = temp.length / 4;
+            var difference = numStaves % 1;
+            numStaves = numStaves - difference;
 
+            var stavesArr = [];
+            var complete = [];
+            var arr = [];
             var j;
-            for (j = 0; j < temp.length; j + 4) {
-                if (temp[j + 3] != null) {
-                    var arr = [];
-                    var x;
-                    for (x = 0; x < 4; x++) {
-                        arr.push(j + x);
+            for (j = 0; j < numStaves; j++) {
+                stavesArr.push(1);
+
+                var x;
+                var count = 0;
+                for (x = 0; x < numStaves * 4; x++) {
+                    count++;
+                    arr.push(temp[x]);
+
+                    if (count === 4) {
+                        complete.push(arr);
+                        arr = [];
                     }
-                    temp2.push(arr);
                 }
+            }
+
+            var inProgress = [];
+            if (numStaves * 4 !== temp.length) {
+                for (j = numStaves * 4; j < temp.length; j++) {
+                    inProgress.push(temp[j]);
+                }
+                stavesArr.push(1);
             }
 
             return {
                 ...state,
-                completedBars: [temp2],
+                staves: stavesArr,
+                completedBars: complete,
+                barInProgress: inProgress,
             };
 
 
