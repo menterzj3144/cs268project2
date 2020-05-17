@@ -108,3 +108,8 @@ body {
 #as {
   left: 81%;
 }
+
+#load {
+  height: 30px;
+  width: 180px;
+}

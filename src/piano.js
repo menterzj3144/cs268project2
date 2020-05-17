@@ -32,6 +32,10 @@ export function Piano() {
         dispatch(loadSong(id));
     };
 
+    const askSong = () => {
+
+    };
+
     return (
         
             <div className="piano-block">
@@ -39,7 +43,8 @@ export function Piano() {
                     <button onClick={onClickAddRest}>Add Rest</button>
                     <button onClick={onClickDeleteNote}>Delete Last Note</button>
                     <button onClick={onClickDeleteSong}>Delete Song</button>
-                    <button onClick={() => clickLoadSong(2)}>Load</button>
+                    <button onClick={() => clickLoadSong(document.getElementById("load").value)}>Load</button>
+                    <input type="text" id="load"></input>
                     <button onClick={clickYeet}>Yeet</button>
                 </div>
                 <div className="piano">
