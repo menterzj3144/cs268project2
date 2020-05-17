@@ -9,11 +9,14 @@ export function Staff() {
     const staves = useSelector(state => state.staves);
     const completedBars = useSelector(state => state.completedBars);
     const barInProgress = useSelector(state => state.barInProgress);
+    const songName = useSelector(state => state.songName);
 
 
     useEffect(() => {
         var vexStaves = convertStaves(staves);
         var vexNotes = convertNotes(completedBars, barInProgress);
+
+        document.getElementById("song-name").innerText = songName;
 
         if (staves[0] != null) {
             const canvas = document.getElementById("staff");
@@ -31,6 +34,10 @@ export function Staff() {
     });
     
     return (
+        <div className="staff-block">
+            <span id="song-name"></span>
             <canvas id="staff"></canvas>
+            <span id="message"></span>
+        </div>
     )
 }

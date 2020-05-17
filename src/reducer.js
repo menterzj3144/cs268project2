@@ -4,6 +4,7 @@ const initialState = {
     staves: [1],
     completedBars: [],
     barInProgress: [],
+    songName: "",
 };
 
 function reducer(state = initialState, action) {
@@ -73,7 +74,8 @@ function reducer(state = initialState, action) {
             }
 
 
-        case Action.DeleteSong:
+        case Action.ClearSong:
+
             return {
                 staves: [1],
                 completedBars: [],
@@ -82,13 +84,13 @@ function reducer(state = initialState, action) {
 
 
         case Action.LoadNotes:
-            var temp = [];
+            var notes = [];
             var i;
-            for (i = 0; i < action.payload.length; i++) {
-                temp.push(action.payload[i].notes);
+            for (i = 0; i < action.payload.songs.length; i++) {
+                notes.push(action.payload.songs[i].notes);
             }
 
-            var numStaves = temp.length / 4;
+            var numStaves = notes.length / 4;
             var difference = numStaves % 1;
             numStaves = numStaves - difference;
 
@@ -98,34 +100,46 @@ function reducer(state = initialState, action) {
             var j;
             for (j = 0; j < numStaves; j++) {
                 stavesArr.push(1);
+            }
 
-                var x;
-                var count = 0;
-                for (x = 0; x < numStaves * 4; x++) {
-                    count++;
-                    arr.push(temp[x]);
+            var x;
+            var count = 0;
+            for (x = 0; x < numStaves * 4; x++) {
+                count++;
+                arr.push(notes[x]);
 
-                    if (count === 4) {
-                        complete.push(arr);
-                        arr = [];
-                    }
+                if (count === 4) {
+                    complete.push(arr);
+                    arr = [];
+                    count = 0;
                 }
             }
 
             var inProgress = [];
-            if (numStaves * 4 !== temp.length) {
-                for (j = numStaves * 4; j < temp.length; j++) {
-                    inProgress.push(temp[j]);
+            if (numStaves * 4 !== notes.length) {
+                for (j = numStaves * 4; j < notes.length; j++) {
+                    inProgress.push(notes[j]);
                 }
                 stavesArr.push(1);
             }
+
+            var length = (complete.length * 4) + inProgress.length;
 
             return {
                 ...state,
                 staves: stavesArr,
                 completedBars: complete,
                 barInProgress: inProgress,
+                loadLength: length,
+                songName: action.payload.songid,
             };
+
+
+        case Action.SaveSongName:
+            return {
+                ...state,
+                songName: action.payload,
+            }
 
 
         default:

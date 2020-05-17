@@ -29,10 +29,17 @@ body {
   align-items: center;
 }
 
-.buttons > button {
+.buttons > button, .db-buttons > button {
   margin: 10px;
   padding: 5px;
   font-size: 12pt;
+}
+
+.staff-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .piano-block {
@@ -109,7 +116,11 @@ body {
   left: 81%;
 }
 
-#load {
+#load, #save {
   height: 30px;
   width: 180px;
+}
+
+#message {
+  display: none;
 }
