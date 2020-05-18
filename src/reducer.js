@@ -129,11 +129,20 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 songName: action.payload,
-            }
+            };
+
         case Action.IsWaiting:
-            return {
-                ...state,
-                isWaiting: action.payload,
+            if (document.getElementById("songName").value === "") {
+                return {
+                    ...state,
+                    isWaiting: false,
+                };
+                
+            } else {
+                return {
+                    ...state,
+                    isWaiting: action.payload,
+                };
             }
 
 

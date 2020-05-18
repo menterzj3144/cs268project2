@@ -147,6 +147,7 @@ export function deleteSong(song_id) {
                 document.getElementById("message").innerText = `${song_id} deleted!`;
                 document.getElementById("message").style.display = "block";
                 dispatch(isWaiting(false));
+                dispatch(saveSongName(""));
             }
         })
         .catch(e => {

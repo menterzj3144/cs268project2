@@ -121,7 +121,7 @@ export function Piano() {
                         <option value="delete">Delete</option>
                     </select>
                     <input type="text" id="songName" placeholder="Song name..."></input>
-                    <button onClick={() => decideFunction(document.getElementById("options").value)}>Submit</button>
+                    <button id="submit" onClick={() => decideFunction(document.getElementById("options").value)}>Submit</button>
                 </div>
                 <div className="buttons">
                     <button onClick={onClickAddRest}>Add Rest</button>

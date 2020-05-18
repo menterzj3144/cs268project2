@@ -145,8 +145,8 @@ body {
 }
 
 .spinner{
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   position: fixed;
   border: 5px solid black;
   top: 30%;
@@ -154,8 +154,11 @@ body {
   margin-left: -50px;
   margin-top: -50px;
   border-radius: 50%;
-  border-top-color: white;
-  animation: spin 1s infinite linear;
+  border: 16px solid white;
+  border-top: 16px solid blue;
+  border-bottom: 16px solid blue;
+  border-radius: 50%;
+  animation: spin 2s linear infinite;
 }
 
 @keyframes spin {
