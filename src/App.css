@@ -24,7 +24,7 @@ body {
 .buttons {
   display: flex;
   flex-direction: row;
-
+  border-top: 50px;
   justify-content: center;
   align-items: center;
 }
@@ -34,6 +34,7 @@ body {
   padding: 5px;
   font-size: 12pt;
 }
+
 
 .staff-block {
   display: flex;
@@ -51,7 +52,7 @@ body {
 
 .piano {
   position: relative;
-  padding-top: 10%;
+  padding-top: 30px;
   padding-bottom: 10%;
 
   display: flex;
@@ -123,4 +124,48 @@ body {
 
 #message {
   display: none;
+  padding-top: 10px;
 }
+
+#options {
+  width: 80px;
+  margin-bottom: 250px;
+  padding: 5px;
+}
+
+#songName{
+  padding: 5px;
+  margin-left: 10px;
+}
+
+#song-name{
+  font-weight: bold;
+  font-size: 24pt;
+  padding-bottom: 10px;
+}
+
+.spinner{
+  width: 100px;
+  height: 100px;
+  position: fixed;
+  border: 5px solid black;
+  top: 30%;
+  left: 50%;
+  margin-left: -50px;
+  margin-top: -50px;
+  border-radius: 50%;
+  border-top-color: white;
+  animation: spin 1s infinite linear;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+

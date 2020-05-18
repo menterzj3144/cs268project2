@@ -5,6 +5,7 @@ const initialState = {
     completedBars: [],
     barInProgress: [],
     songName: "",
+    isWaiting: false,
 };
 
 function reducer(state = initialState, action) {
@@ -132,6 +133,7 @@ function reducer(state = initialState, action) {
                 barInProgress: inProgress,
                 loadLength: length,
                 songName: action.payload.songid,
+                isWaiting: false,
             };
 
 
@@ -139,6 +141,12 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 songName: action.payload,
+                isWaiting: false,
+            }
+        case Action.isWaiting:
+            return {
+                ...state,
+                isWaiting: true,
             }
 
 

@@ -6,7 +6,15 @@ export const Action = Object.freeze({
     FinishSaveNote: 'FinishSaveNote',
     SaveSongName: 'SaveSongName',
     Yeet: 'Yeet',
+    isWaiting: false,
 });
+
+export function isWaiting() {
+    return {
+        type: Action.isWaiting,
+        payload: undefined,
+    }
+}
 
 export function deleteNote() {
     return {
@@ -40,6 +48,7 @@ const host = 'https://jspiano.duckdns.org:8442';
 
 export function loadSong(id) {
     return dispatch => {
+        dispatch(isWaiting());
         fetch(`${host}/song/${id}`)
         .then(checkForErrors)
         .then(response => response.json())
@@ -73,7 +82,8 @@ export function saveNote(id, song_id, song_note) {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(noteAdd)
     }
-    return () => {
+    return dispatch => {
+        dispatch(isWaiting());
         fetch(`${host}/song/`, options)
         .then(checkForErrors)
         .then(response => response.json())
@@ -98,7 +108,8 @@ export function updateNote(id, song_id, song_note) {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(noteAdd)
     }
-    return () => {
+    return dispatch => {
+        dispatch(isWaiting());
         fetch(`${host}/song/${song_id}/${id}`, options)
         .then(checkForErrors)
         .then(response => response.json())
@@ -122,6 +133,7 @@ export function deleteSong(song_id) {
         method: 'DELETE',
     }
     return dispatch => {
+        dispatch(isWaiting());
         fetch(`${host}/song/${song_id}`, options)
         .then(checkForErrors)
         .then(response => response.json())

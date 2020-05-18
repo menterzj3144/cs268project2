@@ -1,10 +1,11 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {addNote, deleteNote, clearSong, loadSong, saveNote, updateNote, deleteSong, saveSongName, yeet} from './actions';
+import {addNote, deleteNote, clearSong, loadSong, saveNote, updateNote, deleteSong, saveSongName, yeet, isWaiting} from './actions';
 
 export function Piano() {
     const completedBars = useSelector(state => state.completedBars);
     const barInProgress = useSelector(state => state.barInProgress);
+    const isWaiting = useSelector(state => state.isWaiting);
     const dispatch = useDispatch();
 
     const playNote = note => {
@@ -42,16 +43,15 @@ export function Piano() {
         dispatch(yeet());
     };
 
-    const clickLoadSong = id => {
+    const Load = id => {
+        console.log(id);
         document.getElementById("message").style.display = "none";
-        document.getElementById("load").value = "";
-
+        document.getElementById("song-name").style.display = "block";
         dispatch(loadSong(id));
     };
 
-    const saveSong = songId => {
+    const Save = songId => {
         document.getElementById("message").style.display = "none";
-        document.getElementById("save").value = "";
 
         var i;
         var noteId = 0;
@@ -73,9 +73,8 @@ export function Piano() {
         dispatch(saveSongName(songId));
     };
 
-    const updateSong = songId => {
+    const Update = songId => {
         document.getElementById("message").style.display = "none";
-        document.getElementById("update").value = "";
 
         var i;
         var noteId = 0;
@@ -95,26 +94,39 @@ export function Piano() {
         }
     }
 
-    const clickDeleteSong = songId => {
+    const Delete = songId => {
         document.getElementById("message").style.display = "none";
         document.getElementById("song-name").style.display = "none";
-        document.getElementById("delete").value = "";
 
         dispatch(deleteSong(songId));
     };
+
+    function decideFunction(option) {
+        console.log(option);
+        if(option === "load"){
+            Load(document.getElementById("songName").value);
+        } else if(option === "save") {
+            Save(document.getElementById("songName").value);
+        } else if(option === "update") {
+            Update(document.getElementById("songName").value);
+        } else if(option === "delete") {
+            Delete(document.getElementById("songName").value);
+        }
+    }
 
     return (
         
             <div className="piano-block">
                 <div className="db-buttons">
-                    <button onClick={() => clickLoadSong(document.getElementById("load").value)}>Load Song</button>
-                    <input type="text" id="load" placeholder="Song name..."></input>
-                    <button onClick={() => saveSong(document.getElementById("save").value)}>Save Song</button>
-                    <input type="text" id="save" placeholder="Song name..."></input>
-                    <button onClick={() => updateSong(document.getElementById("update").value)}>Update Song</button>
-                    <input type="text" id="update" placeholder="Song name..."></input>
-                    <button onClick={() => clickDeleteSong(document.getElementById("delete").value)}>Delete Song</button>
-                    <input type="text" id="delete" placeholder="Song name..."></input>
+                    <label for="options">Choose a command: </label>
+                    <select id="options">
+                        <option value="load">Load</option>
+                        <option value="save">Save</option>
+                        <option value="update">Update</option>
+                        <option value="delete">Delete</option>
+                    </select>
+                    <input type="text" id="songName" placeholder="Song name..."></input>
+                    <button onClick={() => decideFunction(document.getElementById("options").value)}>Submit</button>
                     <button onClick={clickYeet}>Yeet</button>
                 </div>
                 <div className="buttons">
