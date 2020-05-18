@@ -16,7 +16,9 @@ export function Staff() {
         var vexStaves = convertStaves(staves);
         var vexNotes = convertNotes(completedBars, barInProgress);
 
-        document.getElementById("song-name").innerText = songName;
+        if(songName !== undefined) {
+            document.getElementById("song-name").innerText = songName;
+        }
 
         if (staves[0] != null) {
             const canvas = document.getElementById("staff");

@@ -1,11 +1,10 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {addNote, deleteNote, clearSong, loadSong, saveNote, updateNote, deleteSong, saveSongName, yeet, isWaiting} from './actions';
+import {addNote, deleteNote, clearSong, loadSong, saveNote, updateNote, deleteSong, saveSongName} from './actions';
 
 export function Piano() {
     const completedBars = useSelector(state => state.completedBars);
     const barInProgress = useSelector(state => state.barInProgress);
-    const isWaiting = useSelector(state => state.isWaiting);
     const dispatch = useDispatch();
 
     const playNote = note => {
@@ -39,15 +38,10 @@ export function Piano() {
         dispatch(clearSong());
     };
 
-    const clickYeet = () => {
-        dispatch(yeet());
-    };
-
     const Load = id => {
-        console.log(id);
         document.getElementById("message").style.display = "none";
-        document.getElementById("song-name").style.display = "block";
         dispatch(loadSong(id));
+        document.getElementById("song-name").style.display = "block";
     };
 
     const Save = songId => {
@@ -71,6 +65,7 @@ export function Piano() {
         }
 
         dispatch(saveSongName(songId));
+        document.getElementById("song-name").style.display = "block";
     };
 
     const Update = songId => {
@@ -102,7 +97,6 @@ export function Piano() {
     };
 
     function decideFunction(option) {
-        console.log(option);
         if(option === "load"){
             Load(document.getElementById("songName").value);
         } else if(option === "save") {
@@ -112,13 +106,14 @@ export function Piano() {
         } else if(option === "delete") {
             Delete(document.getElementById("songName").value);
         }
+        document.getElementById("songName").value = "";
     }
 
     return (
         
             <div className="piano-block">
                 <div className="db-buttons">
-                    <label for="options">Choose a command: </label>
+                    <label htmlFor="options">Choose a command: </label>
                     <select id="options">
                         <option value="load">Load</option>
                         <option value="save">Save</option>
@@ -127,7 +122,6 @@ export function Piano() {
                     </select>
                     <input type="text" id="songName" placeholder="Song name..."></input>
                     <button onClick={() => decideFunction(document.getElementById("options").value)}>Submit</button>
-                    <button onClick={clickYeet}>Yeet</button>
                 </div>
                 <div className="buttons">
                     <button onClick={onClickAddRest}>Add Rest</button>

@@ -9,15 +9,7 @@ const initialState = {
 };
 
 function reducer(state = initialState, action) {
-    switch (action.type) {      
-        case Action.Yeet:
-            console.log("Yeet");
-            console.log("staves: ", state.staves, "completed: ", state.completedBars, "in progress: ", state.barInProgress);
-            return {
-                ...state,
-            };
-        
-
+    switch (action.type) {
         case Action.AddNote:
             if (state.barInProgress.length < 4 && state.barInProgress.length > 0) {
                 return {
@@ -124,16 +116,12 @@ function reducer(state = initialState, action) {
                 stavesArr.push(1);
             }
 
-            var length = (complete.length * 4) + inProgress.length;
-
             return {
                 ...state,
                 staves: stavesArr,
                 completedBars: complete,
                 barInProgress: inProgress,
-                loadLength: length,
                 songName: action.payload.songid,
-                isWaiting: false,
             };
 
 
@@ -141,12 +129,11 @@ function reducer(state = initialState, action) {
             return {
                 ...state,
                 songName: action.payload,
-                isWaiting: false,
             }
-        case Action.isWaiting:
+        case Action.IsWaiting:
             return {
                 ...state,
-                isWaiting: true,
+                isWaiting: action.payload,
             }
 
 

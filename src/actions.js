@@ -3,16 +3,14 @@ export const Action = Object.freeze({
     AddNote: 'AddNote',
     ClearSong: 'ClearSong',
     LoadNotes: 'LoadNotes',
-    FinishSaveNote: 'FinishSaveNote',
     SaveSongName: 'SaveSongName',
-    Yeet: 'Yeet',
-    isWaiting: false,
+    IsWaiting: 'IsWaiting',
 });
 
-export function isWaiting() {
+export function isWaiting(option) {
     return {
-        type: Action.isWaiting,
-        payload: undefined,
+        type: Action.IsWaiting,
+        payload: option,
     }
 }
 
@@ -48,7 +46,7 @@ const host = 'https://jspiano.duckdns.org:8442';
 
 export function loadSong(id) {
     return dispatch => {
-        dispatch(isWaiting());
+        dispatch(isWaiting(true));
         fetch(`${host}/song/${id}`)
         .then(checkForErrors)
         .then(response => response.json())
@@ -58,9 +56,11 @@ export function loadSong(id) {
                     document.getElementById("message").innerText = `${id} loaded!`;
                     document.getElementById("message").style.display = "block";
                     dispatch(loadNotes(data));
+                    dispatch(isWaiting(false));
                 } else {
                     document.getElementById("message").innerText = `Cannot load. ${id} does not exist.`;
                     document.getElementById("message").style.display = "block";
+                    dispatch(isWaiting(false));
                 }
             }
         })
@@ -83,7 +83,7 @@ export function saveNote(id, song_id, song_note) {
         body: JSON.stringify(noteAdd)
     }
     return dispatch => {
-        dispatch(isWaiting());
+        dispatch(isWaiting(true));
         fetch(`${host}/song/`, options)
         .then(checkForErrors)
         .then(response => response.json())
@@ -91,17 +91,20 @@ export function saveNote(id, song_id, song_note) {
             if (data.ok) {
                 document.getElementById("message").innerText = `${song_id} saved!`;
                 document.getElementById("message").style.display = "block";
+                dispatch(isWaiting(false));
             }
         })
         .catch(e => {
             console.error(e);
             document.getElementById("message").innerText = `${song_id} already exists.`;
             document.getElementById("message").style.display = "block";
+            dispatch(isWaiting(false));
         });
     };
 }
 
 export function updateNote(id, song_id, song_note) {
+    document.getElementById("song-name").style.display = "block";
     const noteAdd = {id, song_id, song_note};
     const options = {
         method: 'PATCH',
@@ -109,7 +112,7 @@ export function updateNote(id, song_id, song_note) {
         body: JSON.stringify(noteAdd)
     }
     return dispatch => {
-        dispatch(isWaiting());
+        dispatch(isWaiting(true));
         fetch(`${host}/song/${song_id}/${id}`, options)
         .then(checkForErrors)
         .then(response => response.json())
@@ -118,12 +121,14 @@ export function updateNote(id, song_id, song_note) {
             if (data.ok) {
                 document.getElementById("message").innerText = `${song_id} updated!`;
                 document.getElementById("message").style.display = "block";
+                dispatch(isWaiting(false));
             }
         })
         .catch(e => {
             console.error(e);
             document.getElementById("message").innerText = `${song_id} doesn't exist.`;
             document.getElementById("message").style.display = "block";
+            dispatch(isWaiting(false));
         });
     };
 }
@@ -133,7 +138,7 @@ export function deleteSong(song_id) {
         method: 'DELETE',
     }
     return dispatch => {
-        dispatch(isWaiting());
+        dispatch(isWaiting(true));
         fetch(`${host}/song/${song_id}`, options)
         .then(checkForErrors)
         .then(response => response.json())
@@ -141,12 +146,14 @@ export function deleteSong(song_id) {
             if (data.ok) {
                 document.getElementById("message").innerText = `${song_id} deleted!`;
                 document.getElementById("message").style.display = "block";
+                dispatch(isWaiting(false));
             }
         })
         .catch(e => {
             console.error(e);
             document.getElementById("message").innerText = `Cannot delete. ${song_id} does not exist.`;
             document.getElementById("message").style.display = "block";
+            dispatch(isWaiting(false));
         });
     };
 }
@@ -157,12 +164,4 @@ export function saveSongName(songName) {
         type: Action.SaveSongName,
         payload: songName,
     }
-}
-
-
-export function yeet() {
-    return {
-        type: Action.Yeet,
-        payload: undefined,
-    };
 }
